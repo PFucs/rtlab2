@@ -30,6 +30,9 @@ public class Main {
 			if(content instanceof State) {
 				State state = (State) content;
 				System.out.println(state.getName());
+				if(vertex.getOutgoingTransitions().isEmpty()) {
+					System.out.printf("%s is a trap state\n", state.getName());
+				}
 			}
 			if(content instanceof Transition) {
 				Transition transition =(Transition) content;
