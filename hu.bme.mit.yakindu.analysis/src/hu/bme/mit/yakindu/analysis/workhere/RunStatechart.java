@@ -1,6 +1,7 @@
 package hu.bme.mit.yakindu.analysis.workhere;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import hu.bme.mit.yakindu.analysis.RuntimeService;
 import hu.bme.mit.yakindu.analysis.TimerService;
@@ -18,13 +19,27 @@ public class RunStatechart {
 		s.init();
 		s.enter();
 		s.runCycle();
-		print(s);
-		s.raiseStart();
-		s.runCycle();
-		System.in.read();
-		s.raiseWhite();
-		s.runCycle();
-		print(s);
+		Scanner scanner = new Scanner(System.in);
+		String str;
+		while(!(str=scanner.nextLine()).isEmpty()){
+			switch(str)
+			{
+				 case "start":
+					s.raiseStart();
+					break;
+				case "white":
+					 s.raiseWhite();
+					 break;
+				case "black":
+					s. raiseBlack();
+					break;
+				case "exit":
+					System.exit(0);
+				
+			}
+			s.runCycle();
+			print(s);
+		}
 		System.exit(0);
 	}
 
