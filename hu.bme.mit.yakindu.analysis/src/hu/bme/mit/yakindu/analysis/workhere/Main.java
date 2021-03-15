@@ -9,6 +9,7 @@ import org.yakindu.sct.model.sgraph.Transition;
 import org.yakindu.sct.model.sgraph.Vertex;
 import org.yakindu.sct.model.stext.stext.EventDefinition;
 import org.yakindu.sct.model.stext.stext.VariableDefinition;
+import java.util.*;
 
 import hu.bme.mit.model2gml.Model2GML;
 import hu.bme.mit.yakindu.analysis.modelmanager.ModelManager;
@@ -29,19 +30,60 @@ public class Main {
 		// Reading model
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
-		
-		System.out.println("public static void print(IExampleStatemachine s) {");
+		ArrayList<String> events =new ArrayList<String>();
+		ArrayList<String> vars =new ArrayList<String>();
 		
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
 			
+			if(content instanceof EventDefinition) {
+				EventDefinition ed = (EventDefinition) content;
+				events.add(ed.getName());
+			}
+			
 			if(content instanceof VariableDefinition) {
 				VariableDefinition vd =(VariableDefinition) content;
-				System.out.printf("System.out.println(\"W = \" + s.getSCInterface().get%s())\n", vd.getName());				
-				
+				vars.add(vd.getName());				
 			}
 			
 		}
+		
+		System.out.println("public static void main(String[] args) throws IOException {");
+		System.out.println("	ExampleStatemachine s = new ExampleStatemachine();");
+		System.out.println("	s.setTimer(new TimerService());");
+		System.out.println("	RuntimeService.getInstance().registerStatemachine(s, 200);");
+		System.out.println("	s.init();");
+		System.out.println("	s.enter();");
+		System.out.println("	s.runCycle();");
+		System.out.println("	Scanner scanner = new Scanner(System.in);");
+		System.out.println("	String str;");
+		System.out.println("	while(!(str=scanner.nextLine()).isEmpty()){");
+		System.out.println("	switch(str)");
+		System.out.println("	{");
+		
+		for(String ev : events) {
+			System.out.printf("\t\tcase \"%s\":\n", ev);
+			System.out.printf("\t\ts.raise%s();\n", ev);
+			System.out.println("		break;");
+
+		}
+		System.out.printf("\t\tcase \"exit\":\n");
+		System.out.printf("\t\tSystem.exit(0);\n");
+		
+		System.out.println("	}");
+		System.out.println("	s.runCycle();");		
+		System.out.println("	print(s);");
+		System.out.println("}");
+
+	
+		
+		System.out.println("public static void print(IExampleStatemachine s) {");
+		
+		for(String v : vars) {
+			System.out.printf("System.out.println(\"W = \" + s.getSCInterface().get%s());\n", v);
+		}
+		
+		System.out.println("}");
 		System.out.println("}");
 		
 		// Transforming the model into a graph representation
@@ -50,3 +92,4 @@ public class Main {
 		manager.saveFile("model_output/graph.gml", content);
 	}
 }
+
