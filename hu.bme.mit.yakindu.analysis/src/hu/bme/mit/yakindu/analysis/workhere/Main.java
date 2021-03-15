@@ -38,14 +38,12 @@ public class Main {
 			
 			if(content instanceof EventDefinition) {
 				EventDefinition ed = (EventDefinition) content;
-				String str=ed.getName();
-				events.add(str.substring(0, 1).toUpperCase() + str.substring(1));
+				events.add(ed.getName());
 			}
 			
 			if(content instanceof VariableDefinition) {
 				VariableDefinition vd =(VariableDefinition) content;
-				String str=vd.getName();
-				vars.add(str.substring(0, 1).toUpperCase() + str.substring(1));
+				vars.add(vd.getName());
 							
 			}
 			
@@ -64,9 +62,9 @@ public class Main {
 		System.out.println("	switch(str)");
 		System.out.println("	{");
 		
-		for(String ev : events) {
-			System.out.printf("\t\tcase \"%s\":\n", ev);
-			System.out.printf("\t\ts.raise%s();\n", ev);
+		for(String str : events) {
+			System.out.printf("\t\tcase \"%s\":\n", str);
+			System.out.printf("\t\ts.raise%s();\n", str.substring(0, 1).toUpperCase() + str.substring(1));
 			System.out.println("		break;");
 
 		}
@@ -82,8 +80,8 @@ public class Main {
 		
 		System.out.println("	public static void print(IExampleStatemachine s) {");
 		
-		for(String v : vars) {
-			System.out.printf("\tSystem.out.println(\"W = \" + s.getSCInterface().get%s());\n", v);
+		for(String str : vars) {
+			System.out.printf("\tSystem.out.println(\"W = \" + s.getSCInterface().get%s());\n", str.substring(0, 1).toUpperCase() + str.substring(1));
 		}
 		
 		System.out.println("	}");
