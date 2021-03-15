@@ -38,12 +38,15 @@ public class Main {
 			
 			if(content instanceof EventDefinition) {
 				EventDefinition ed = (EventDefinition) content;
-				events.add(ed.getName());
+				String str=ed.getName();
+				events.add(str.substring(0, 1).toUpperCase() + str.substring(1));
 			}
 			
 			if(content instanceof VariableDefinition) {
 				VariableDefinition vd =(VariableDefinition) content;
-				vars.add(vd.getName());				
+				String str=vd.getName();
+				vars.add(str.substring(0, 1).toUpperCase() + str.substring(1));
+							
 			}
 			
 		}
@@ -73,17 +76,17 @@ public class Main {
 		System.out.println("	}");
 		System.out.println("	s.runCycle();");		
 		System.out.println("	print(s);");
-		System.out.println("}");
+		System.out.println("	}");
 
 	
 		
-		System.out.println("public static void print(IExampleStatemachine s) {");
+		System.out.println("	public static void print(IExampleStatemachine s) {");
 		
 		for(String v : vars) {
-			System.out.printf("System.out.println(\"W = \" + s.getSCInterface().get%s());\n", v);
+			System.out.printf("\tSystem.out.println(\"W = \" + s.getSCInterface().get%s());\n", v);
 		}
 		
-		System.out.println("}");
+		System.out.println("	}");
 		System.out.println("}");
 		
 		// Transforming the model into a graph representation
@@ -92,4 +95,3 @@ public class Main {
 		manager.saveFile("model_output/graph.gml", content);
 	}
 }
-
