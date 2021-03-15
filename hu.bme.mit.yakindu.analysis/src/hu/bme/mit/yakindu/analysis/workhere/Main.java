@@ -5,6 +5,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.junit.Test;
 import org.yakindu.sct.model.sgraph.State;
 import org.yakindu.sct.model.sgraph.Statechart;
+import org.yakindu.sct.model.sgraph.Transition;
+import org.yakindu.sct.model.sgraph.Vertex;
+import org.yakindu.sct.model.stext.stext.EventDefinition;
+import org.yakindu.sct.model.stext.stext.VariableDefinition;
 
 import hu.bme.mit.model2gml.Model2GML;
 import hu.bme.mit.yakindu.analysis.modelmanager.ModelManager;
@@ -37,7 +41,7 @@ public class Main {
 				if(state.getName()== null || state.getName().isEmpty()) {
 					System.out.println("This state does not have a name, consider naming it state1");
 				}
-			}
+			
 			}
 			if(content instanceof Transition) {
 				Transition transition =(Transition) content;
