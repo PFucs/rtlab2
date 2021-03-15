@@ -29,19 +29,20 @@ public class Main {
 		// Reading model
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
+		
+		System.out.println("public static void print(IExampleStatemachine s) {");
+		
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
-			if(content instanceof EventDefinition) {
-				EventDefinition ed = (EventDefinition) content;
-				System.out.println(ed.getName());				
-			}
 			
 			if(content instanceof VariableDefinition) {
 				VariableDefinition vd =(VariableDefinition) content;
-				System.out.println(vd.getName());				
+				System.out.printf("System.out.println(\"W = \" + s.getSCInterface().get%s())\n", vd.getName());				
 				
 			}
+			
 		}
+		System.out.println("}");
 		
 		// Transforming the model into a graph representation
 		String content = model2gml.transform(root);
