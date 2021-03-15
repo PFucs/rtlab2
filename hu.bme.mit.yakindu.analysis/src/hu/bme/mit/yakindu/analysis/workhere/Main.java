@@ -31,6 +31,11 @@ public class Main {
 				State state = (State) content;
 				System.out.println(state.getName());
 			}
+			if(content instanceof Transition) {
+				Transition transition =(Transition) content;
+				System.out.printf("%s -> %s\n", transition.getSource().getName(), transition.getTarget().getName());
+				
+			}
 		}
 		
 		// Transforming the model into a graph representation
