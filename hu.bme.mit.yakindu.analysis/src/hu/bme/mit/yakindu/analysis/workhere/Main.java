@@ -31,21 +31,14 @@ public class Main {
 		TreeIterator<EObject> iterator = s.eAllContents();
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
-			if(content instanceof State) {
-				State state = (State) content;
-				System.out.println(state.getName());
-				Vertex vertex = (Vertex) state;
-				if(vertex.getOutgoingTransitions().isEmpty()) {
-					System.out.printf("%s is a trap state\n", state.getName());
-				}
-				if(state.getName()== null || state.getName().isEmpty()) {
-					System.out.println("This state does not have a name, consider naming it state1");
-				}
-			
+			if(content instanceof EventDefinition) {
+				EventDefinition ed = (EventDefinition) content;
+				System.out.println(ed.getName());				
 			}
-			if(content instanceof Transition) {
-				Transition transition =(Transition) content;
-				System.out.printf("%s -> %s\n", transition.getSource().getName(), transition.getTarget().getName());
+			
+			if(content instanceof VariableDefinition) {
+				VariableDefinition vd =(VariableDefinition) content;
+				System.out.println(vd.getName());				
 				
 			}
 		}
